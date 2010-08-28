@@ -1,0 +1,8 @@
+log/*.log
+tmp/*
+**/*.swp
+**/*.swo
+**/*.swn
+*.swp
+*.swn
+*.swo
