@@ -49,6 +49,7 @@ Room = new Class({
   create: function() {
     this.set_short("Empty place")
     this.set_long("This room is broken. Pretend you didn't see it")
-  }});
+  }
+});
 
 

@@ -28,7 +28,7 @@ World = new Class({
 		this.players[player.name] = player;
 		this.announce(player.name+" has entered the world.");
 	},
-getPlayer: function(name) {
+	getPlayer: function(name) {
 		return this.players[name] || false;
 	},
 
