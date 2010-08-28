@@ -31,9 +31,9 @@ log_error = function(message) {
 	sys.puts("ERROR: "+message);
 }
 
-var world = new World('discoworld');
+world = new World('discoworld');
 
-var handlePlayer = function(playerName, stream) {
+handlePlayer = function(playerName, stream) {
 
 	var player = new Player(playerName);
 
