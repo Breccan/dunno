@@ -96,7 +96,7 @@ Living = new Class({
       this.force('move '+ string);
     }
     else {
-       this.send(("What?");
+       this.send("What?");
     }
 	},
 
