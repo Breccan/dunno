@@ -12,4 +12,4 @@ var server = net.createServer(function (stream) {
       stream.end();
       });
     });
-server.listen(80, '127.0.0.1');
+server.listen(80);
