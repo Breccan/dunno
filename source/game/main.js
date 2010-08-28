@@ -11,7 +11,7 @@ var server = net.createServer(function (stream) {
 
     stream.on('connect', function () {
 		stream.write("What is your name?\r\n");
-		sys.puts("User connected.");
+		sys.puts("User connected ("+stream.remoteAddress+")");
 	});
 
 	var closure = null;
@@ -26,10 +26,6 @@ var server = net.createServer(function (stream) {
 	});
 
 });
-
-GLOBAL.onerror = function() {
-	sys.puts("Yay, we caught thsi error.");
-}
 
 log_error = function(message) {
 	sys.puts("ERROR: "+message);
