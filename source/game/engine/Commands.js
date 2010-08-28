@@ -41,8 +41,8 @@ Commands = {
     var target = params.shift();
     target = world.getPlayer(target);
     if (target) {
-      target.send(this.name + "tells you: " + params);
-      return ("You tell" + target.name + ": " + params);
+      target.send(this.name + " tells you: " + params.join(' '));
+      return ("You tell: " + target.name + ": " + params.join(' '));
     } else {
       return "Tell who?";
     }

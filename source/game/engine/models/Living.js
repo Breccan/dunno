@@ -37,6 +37,7 @@ Living = new Class({
         var new_room = world.getRoom(this.get('location'));
         new_room.addPlayer(this.name);
       }
+      
     }
   },
 
