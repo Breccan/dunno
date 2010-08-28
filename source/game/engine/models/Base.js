@@ -3,7 +3,7 @@ Base = new Class({
 	save: {},
 
 	initialize: function() {
-		this.create();
+		this.create.bind(this).pass(arguments)();
 	},
 
 	save: function (k, v) {
@@ -12,13 +12,16 @@ Base = new Class({
 
 	get: function(k) {
 		var meth = 'get'+k.capitalize();
-		return (this[meth]) ? this[meth]() : this.save[k] || null;
+		if (this[meth])  return this[meth]();
+		else if (this[k]) return this[k];
+		else if (this.save[k]) return this.save[k];
+		else return null;
 	},
 
 	set: function(k ,v) {
 		var meth = 'set'+k.capitalize();
 		if (this[meth]) this[meth](v);
-		else this.save(k,v);
+		else this[k] = v;
 	}
 
 });
