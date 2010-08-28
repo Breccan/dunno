@@ -1,5 +1,5 @@
-Player = new Class({
-  Extends: Living
+Living = new Class({
+  Extends: Base
 });
 
 

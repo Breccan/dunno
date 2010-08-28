@@ -1,4 +1,4 @@
-Living = new Class({
-  Extends: Base
+Player = new Class({
+  Extends: Living
 });
 
