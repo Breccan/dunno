@@ -1,13 +1,15 @@
 Player = new Class({
 
 	Extends: Living,
-  type: "player",
 
 	/**
 	 * The main engine will add an event to the player object to output data.
 	 */
 	send: function(message, delay) {
-		this.fireEvent('output', message);
+		if (!message.each) message = [message];
+		message.each(function(line) {
+			this.fireEvent('output', line);
+		}, this);
 	},
 
 	/**
@@ -25,10 +27,20 @@ Player = new Class({
 		if (world.getPlayer(this.get('name'))) return false;
 		world.addPlayer(this);
 		this.set('world', world);
-    this.set('location', "discoworld/rooms/lobby");
-    world.getRoom("discoworld/rooms/lobby").addPlayer(this.name);
+	    this.set('location', "lobby");
+		world.getRoom(this.get('location')).addPlayer(this);
 		this.force('look');
 		return true;
+	},
+
+	/**
+	 * Emits a message to everyone in the room except the current player.
+	 */
+	emit: function(message) {
+		me = this.name;
+		this.get('room').get('players').each(function(player, name) {
+			if (player.name != me) player.send(message);
+		});
 	}
 
 });

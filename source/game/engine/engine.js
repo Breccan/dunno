@@ -1,6 +1,5 @@
 require('engine/Commands');
 require('engine/Messages');
-require('engine/Prompts');
 require('engine/models/Base');
 require('engine/models/Container');
 require('engine/models/Item');

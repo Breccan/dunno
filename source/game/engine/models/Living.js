@@ -14,32 +14,26 @@ Living = new Class({
 
 	name: null,
 
+	world: null,
+
 	create: function(name) {
 		this.set('name', name);
 		this.startHeart();
 	},
-  //moveTo Includes tracking which players are where.
-  moveTo: function(room) {
-    if (typeof world.getRoom(room) !== 'undefined') {
-      if (this.type === "player") {
-        var old_room = world.getRoom(this.get('location'));
-        old_room.removePlayer(this.name);
-      }
-      this.set('location', room);
-      if (this.type === "player") {
-        var new_room = world.getRoom(this.get('location'));
-        new_room.addPlayer(this.name);
-      }
-    }
-    else {
-      this.set('location', room);
-      if (this.type === "player") {
-        var new_room = world.getRoom(this.get('location'));
-        new_room.addPlayer(this.name);
-      }
-      
-    }
-  },
+
+	setRoom: function(room) {
+		this.get('room').removePlayer(this);
+		this.room = room;
+		this.room.addPlayer(this);
+		this.set('location', room.path);
+	},
+
+	//moveTo Includes tracking which players are where.
+	moveTo: function(path) {
+		var room = this.world.getRoom(path);
+		if (!room) return false;
+		this.set('room', room);
+   	},
 
 	/**
 	 * If it's living, it has a heart beat.  Every time the heart beats, the 
@@ -84,21 +78,23 @@ Living = new Class({
 
 	parseCommand: function(string) {
 
-    string = string.trim();
-    var params = string.split(' ');
-    var command = params.shift();
-    var out = '';
-    if (typeof Commands[command] !== 'undefined'){
-      //HOrrible hack make it pass better please?
-      params = params.join(' ')
-     this.send(Commands[command].bind(this).pass(params)());
-    }
-    else if (this.get('room') && this.get('room').hasExit(string)){
-      this.force('move '+ string);
-    }
-    else {
-       this.send("What?");
-    }
+		string = string.trim();
+		var params = string.split(' ');
+		var command = params.shift();
+		var out = '';
+		if (typeof Commands[command] !== 'undefined'){
+			params = params.join(' ');
+			out = Commands[command].bind(this).pass(params)();
+		}
+		else if (this.get('room') && this.get('room').hasExit(string)){
+			this.force('move '+ string);
+		}
+
+		if (out===true) return;
+		if (!out) out = 'What?';
+		
+		this.send(out);
+
 	},
 
 	callNextAction: function() {
@@ -109,11 +105,12 @@ Living = new Class({
 	 * Force the character to do something.
 	 */
 	force: function(command) {
-		this.queueCommand(command);
+		return this.parseCommand(command);
 	},
-  getRoom: function() {
-    return world.getRoom(this.get('location'));
-  },
+	
+	getRoom: function() {
+		return this.world.getRoom(this.get('location'));
+	},
 
 /**
  * Fun things to implement if we have time later.
