@@ -23,9 +23,15 @@ server = http.createServer(function(req, res){
   var path = url.parse(req.url).pathname;
   switch (path){
   case '/':
+    try{
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<h1>Welcome. Try the <a href="/client/chat.html">chat</a> example.</h1>');
-    res.end();
+    fs.readFile('client/index.html', 'utf8', function(err, data){
+          if (!err) res.write(data, 'utf8');
+          res.end();
+        });
+      } catch(e){ 
+        send404(res); 
+      }
     break;
 
   default:

@@ -17,7 +17,7 @@ Room = new Class({
     return this.items();
   },
   hasExit: function(exit) {
-    return typeof this.exits[exit] === 'undefined';
+    return typeof this.exits[exit] !== 'undefined';
   },
   set_short: function(short) {
     this.short = short;

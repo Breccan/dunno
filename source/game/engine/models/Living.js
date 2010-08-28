@@ -18,6 +18,14 @@ Living = new Class({
 		this.set('name', name);
 		this.startHeart();
 	},
+  moveTo: function(room) {
+    if (typeof world.getRoom(room) !== 'undefined') {
+      this.set('location', room);
+    }
+    else {
+      this.send("You can't go that way for some reason");
+    }
+  },
 
 	/**
 	 * If it's living, it has a heart beat.  Every time the heart beats, the 
@@ -67,21 +75,18 @@ Living = new Class({
     var command = params.shift();
     var out = '';
     if (typeof Commands[command] !== 'undefined'){
-      out = Commands[command].bind(this).pass(params)();
+     this.send(Commands[command].bind(this).pass(params)());
     }
     else if (this.get('room') && this.get('room').hasExit(string)){
-      out = this.force('move '+ string);
+      this.force('move '+ string);
     }
     else {
-      out = ("I can't let you do that Dave");
+       this.send(("I can't let you do that Dave"));
     }
-    return out;
 	},
 
 	callNextAction: function() {
 		var response = this.parseCommand(this.queue.shift());
-		if (!response) this.send("What?");
-		else this.send(response);
 	},
 
 	/**

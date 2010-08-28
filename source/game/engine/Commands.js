@@ -14,7 +14,17 @@ Commands = {
     else {
       returner.push( "You can't see anything interesting.");
     }
-    return returner;
+    return returner.join("\r\n");
+  }, 
+  'move': function(direction){
+    var room = this.getRoom();
+    if (room && room.exits[direction]) {
+      this.moveTo(room.exits[direction]);
+      this.force('look');
+      return "You move "+ direction ;
+    } else {
+      return "There's nothing in that direction.";
+    }
   }
 };
 
