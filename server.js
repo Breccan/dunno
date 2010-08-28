@@ -12,4 +12,4 @@ var server = net.createServer(function (stream) {
       stream.end();
       });
     });
-server.listen(8124, 'localhost');
+server.listen(80, 'localhost');
