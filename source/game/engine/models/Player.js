@@ -15,7 +15,17 @@ Player = new Class({
 	 */
 	onInput: function(command) {
 		this.queueCommand(command);
+	},
+
+	/**
+	 * Puts the player in the world.
+	 */
+	enterWorld: function(world) {
+		if (world.getPlayer(this.get('name'))) return false;
+		world.addPlayer(this);
+		this.set('world', world);
+		this.force('look');
+		return true;
 	}
 
 });
-

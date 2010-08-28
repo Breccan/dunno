@@ -2,7 +2,7 @@ Living = new Class({
 
 	Extends: Base,
 
-	Implements: Events,
+	Implements: [Events,Options],
 
 	queue: [],
 
@@ -12,10 +12,11 @@ Living = new Class({
 
 	long: null,
 
-	create: function() {
+	name: null,
 
+	create: function(name) {
+		this.set('name', name);
 		this.startHeart();
-
 	},
 
 	/**
@@ -32,7 +33,6 @@ Living = new Class({
 	 * their heart should KEEP beating).
 	 */
 	beatHeart: function() {
-		this.send("budump...");
 		if (this.queue.length>0) this.callNextAction();
 	},
 
