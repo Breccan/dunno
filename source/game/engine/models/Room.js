@@ -44,7 +44,6 @@ Room = new Class({
 		lines.push('Exits: '+this.get('exits').getKeys().join(', '));
 		var players = [];
 		this.get('players').each(function(pl,name) {
-			sys.puts(name);
 			if (name!=observer.name) players.push(name);
 		});
 		if (players.length>0) lines.push('Players: '+players.join(', '));

@@ -20,7 +20,6 @@ Living = new Class({
 
 	location: null,
 
-
 	create: function(name) {
 		this.set('name', name);
 		this.startHeart();
@@ -111,7 +110,13 @@ Living = new Class({
 		}
 		else if (this.get('room') && this.get('room').hasExit(string)){
 			this.force('move '+ string);
+			return this.force('look');
 		}
+
+		//The commands either have to return before this point or have
+		//output that is equal to true or a string.
+		//
+		//Otherwise, the parser will treat it like an invalid command.
 
 		if (out===true) return;
 		if (!out) out = 'What?';

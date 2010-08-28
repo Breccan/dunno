@@ -6,6 +6,9 @@ Commands = {
 		if (!obj) {
 			return this.get('room').getDescription(this);
 		} else {
+			var item = this.getByKeyword(obj);
+			if (!item) item = this.get('room').getByKeyboard(obj);
+
 			reply.push("You can't see anything interesting.");
 		}
 		return reply;
@@ -16,7 +19,6 @@ Commands = {
 		if (room && room.exits[direction]) {
 			var success = this.moveTo(room.exits[direction]);
 			if (!success) return "You can't go that way."
-			this.force('look');
 			return "You move "+ direction +".";
 		} else {
 			return "There's nothing in that direction.";
