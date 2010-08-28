@@ -1,0 +1,15 @@
+Hey, Hope you see this.
+
+So I added tells, says, look, movement, tidied up the interface a little and got it working on the host in both forms.
+
+Look at things hasn't been done, but then there aren't things yet.
+
+One thing that needs to be done soonish is making it so that you see who's in the room etc and when they enter and leave. I got someone else to log in and it felt really weird when I couldn't see them or do stuff.
+
+I think to get a bit of buzz going we'll probably have to play up the amusing writing a bit more than otherwise. Possibly focus on some entertaining disco based combat?
+
+Oh I implemented getKeys in the hash in the mootools file. Seemed like the quickest place.
+
+I added a player hash to rooms as well so that say targets people you're near. Should be easy to add a global chat as well.
+
+See you in 8 hours or so. Around the 22'nd hour of the competition.
