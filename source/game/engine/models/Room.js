@@ -1,4 +1,5 @@
 Room = new Class({
+  Extends: Base,
   long: null,
   short: null,
   exits: {},
@@ -11,6 +12,9 @@ Room = new Class({
   },
   getExits: function() {
     return this.exits;
+  },
+  getItems: function() {
+    return this.items();
   },
   hasExit: function(exit) {
     return typeof this.exits[exit] === 'undefined';

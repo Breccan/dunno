@@ -98,7 +98,7 @@ buffer = [];
 
 io.on('connection', function(client){
   var connection = new Client(client);
-  connection.write("what is your name");
+  connection.write("What is your name?");
 
   var closure = null;
   client.on('message', function(message){

@@ -24,6 +24,7 @@ Player = new Class({
 		if (world.getPlayer(this.get('name'))) return false;
 		world.addPlayer(this);
 		this.set('world', world);
+    this.set('location', "discoworld/rooms/lobby");
 		this.force('look');
 		return true;
 	}

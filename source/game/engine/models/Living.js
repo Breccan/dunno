@@ -60,11 +60,22 @@ Living = new Class({
 
 	},
 
-	parseCommand: function(str) {
+	parseCommand: function(string) {
 
-		this.send("You want to: "+str);
-		this.send("Well, you can't.", 100);
-
+    string = string.trim();
+    var params = string.split(' ');
+    var command = params.shift();
+    var out = '';
+    if (typeof Commands[command] !== 'undefined'){
+      out = Commands[command].bind(this).pass(params)();
+    }
+    else if (this.get('room') && this.get('room').hasExit(string)){
+      out = this.force('move '+ string);
+    }
+    else {
+      out = ("I can't let you do that Dave");
+    }
+    return out;
 	},
 
 	callNextAction: function() {
@@ -79,6 +90,9 @@ Living = new Class({
 	force: function(command) {
 		this.queueCommand(command);
 	},
+  getRoom: function() {
+    return world.getRoom(this.get('location'));
+  },
 
 /**
  * Fun things to implement if we have time later.

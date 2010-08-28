@@ -28,8 +28,7 @@ World = new Class({
 		this.players[player.name] = player;
 		this.announce(player.name+" has entered the world.");
 	},
-
-	getPlayer: function(name) {
+getPlayer: function(name) {
 		return this.players[name] || false;
 	},
 
@@ -37,6 +36,12 @@ World = new Class({
 		this.players.each(function(player) {
 			player.send(message.capitalize());
 		});
-	}
-
+  },
+  getRoom: function(path) {
+    if (!this.rooms[path]) {
+      var room = require('worlds/'+path).room;
+      this.rooms[path] = new room();
+    }
+    return this.rooms[path];
+  }
 });
