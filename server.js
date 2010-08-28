@@ -1,6 +1,7 @@
 require.paths.push('source/game/engine');
 require.paths.push('source/game');
-require('lib/mootools').apply(GLOBAL);
+require.paths.push('./');
+require('./lib/mootools').apply(GLOBAL);
 require('./source/game/engine/engine');
 require('./client')
 
@@ -49,22 +50,21 @@ server = http.createServer(function(req, res){
 world = new World('discoworld'),
 //handles player and send to site.
 handlePlayer = function(playerName, stream) {
+	var player = new Player(playerName);
 
-  var player = new Player(playerName);
-  player.send("HELLO");
+	player.addEvent('output', function(message) {
+		stream.write(message+"\r\n");
+	});
 
-  player.addEvent('output', function(message) {
-    stream.write(message+"\r\n");
-  });
+	stream.on('data', function(data) {
+		player.onInput(new String(data).trim());
+	});
 
-  stream.on('data', function(data) {
-    player.fireEvent('input', new String(data).trim());
-  });
+	player.send("Hi there, "+player.get('name')+"!");
 
-  //player.enterWorld(world);
+	if (!player.enterWorld(world)) return false;
 
-  return true;
-
+	return true;
 },
 //login closure for direct connection
 login = function(stream) {
@@ -76,6 +76,7 @@ login = function(stream) {
   var closure = null;
   stream.on('data', function (data) {
     if (!closure) closure = handlePlayer(new String(data).trim(), stream);
+		if (!closure) stream.write("Please try again: ");
   });
 
   stream.on('end', function () {
@@ -102,6 +103,7 @@ io.on('connection', function(client){
   var closure = null;
   client.on('message', function(message){
     if (!closure) closure = handlePlayer(new String(message).trim(), connection);
+		if (!closure) connection.write("Please try again: ");
   });
 
   client.on('disconnect', function(){
