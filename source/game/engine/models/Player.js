@@ -1,6 +1,7 @@
 Player = new Class({
 
 	Extends: Living,
+  type: "player",
 
 	/**
 	 * The main engine will add an event to the player object to output data.
@@ -25,6 +26,7 @@ Player = new Class({
 		world.addPlayer(this);
 		this.set('world', world);
     this.set('location', "discoworld/rooms/lobby");
+    world.getRoom("discoworld/rooms/lobby").addPlayer(this.name);
 		this.force('look');
 		return true;
 	}

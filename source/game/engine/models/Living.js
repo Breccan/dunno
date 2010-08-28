@@ -18,12 +18,25 @@ Living = new Class({
 		this.set('name', name);
 		this.startHeart();
 	},
+  //moveTo Includes tracking which players are where.
   moveTo: function(room) {
     if (typeof world.getRoom(room) !== 'undefined') {
+      if (this.type === "player") {
+        var old_room = world.getRoom(this.get('location'));
+        old_room.removePlayer(this.name);
+      }
       this.set('location', room);
+      if (this.type === "player") {
+        var new_room = world.getRoom(this.get('location'));
+        new_room.addPlayer(this.name);
+      }
     }
     else {
-      this.send("You can't go that way for some reason");
+      this.set('location', room);
+      if (this.type === "player") {
+        var new_room = world.getRoom(this.get('location'));
+        new_room.addPlayer(this.name);
+      }
     }
   },
 
@@ -75,13 +88,15 @@ Living = new Class({
     var command = params.shift();
     var out = '';
     if (typeof Commands[command] !== 'undefined'){
+      //HOrrible hack make it pass better please?
+      params = params.join(' ')
      this.send(Commands[command].bind(this).pass(params)());
     }
     else if (this.get('room') && this.get('room').hasExit(string)){
       this.force('move '+ string);
     }
     else {
-       this.send(("I can't let you do that Dave"));
+       this.send(("What?");
     }
 	},
 

@@ -4,11 +4,22 @@ Room = new Class({
   short: null,
   exits: {},
   items: {},
+  players: {},
 
   initialize: function() {
+    this.players = new Hash(this.players);
     this.exits = new Hash(this.exits);
     this.items = new Hash(this.items);
     this.create();
+  },
+	addPlayer: function(player) {
+		this.players[player.name] = player;
+	},
+  getPlayer: function(name) {
+		return this.players[name] || false;
+	},
+  removePlayer: function(name) {
+    this.players[name] = null;
   },
   getExits: function() {
     return this.exits;
