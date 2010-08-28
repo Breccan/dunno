@@ -27,6 +27,14 @@ var server = net.createServer(function (stream) {
 
 });
 
+GLOBAL.onerror = function() {
+	sys.puts("Yay, we caught thsi error.");
+}
+
+log_error = function(message) {
+	sys.puts("ERROR: "+message);
+}
+
 var world = new World('discoworld');
 
 var handlePlayer = function(playerName, stream) {
@@ -38,14 +46,20 @@ var handlePlayer = function(playerName, stream) {
 	});
 
 	stream.on('data', function(data) {
-		player.onInput(new String(data).trim());
+		try {
+			player.onInput(new String(data).trim());
+		} catch(e) {
+			log_error(e);
+		}
 	});
 
-	player.send("Hi there, "+player.get('name')+"!");
-
-	if (!player.enterWorld(world)) return false;
-
-	return true;
+	try {
+		player.send("Hi there, "+player.get('name')+"!");
+		if (!player.enterWorld(world)) return false;
+		return true;
+	} catch (e) {
+		log_error(e);
+	}
 
 };
 

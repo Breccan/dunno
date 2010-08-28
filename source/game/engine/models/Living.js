@@ -16,23 +16,46 @@ Living = new Class({
 
 	world: null,
 
+	room: null,
+
+	location: null,
+
+
 	create: function(name) {
 		this.set('name', name);
 		this.startHeart();
 	},
 
 	setRoom: function(room) {
-		this.get('room').removePlayer(this);
+		if (this.room && this.room.path == this.location) return;
+		if (this.get('room')) this.get('room').removePlayer(this);
 		this.room = room;
 		this.room.addPlayer(this);
 		this.set('location', room.path);
 	},
+	
+	getRoom: function() {
+		return this.room;
+	},
+
+	setLocation: function(path) {
+		sys.puts("Setting location to "+path);
+		var room = this.world.getRoom(path);
+		if (!room) {
+			log_error("Can't find room for "+path);
+			return;
+		}
+		this.setRoom(this.world.getRoom(path));
+		this.location = path;
+	},
 
 	//moveTo Includes tracking which players are where.
 	moveTo: function(path) {
+		sys.puts("Transporting "+this.name+" to room "+path);
 		var room = this.world.getRoom(path);
 		if (!room) return false;
 		this.set('room', room);
+		return true;
    	},
 
 	/**
@@ -106,10 +129,6 @@ Living = new Class({
 	 */
 	force: function(command) {
 		return this.parseCommand(command);
-	},
-	
-	getRoom: function() {
-		return this.world.getRoom(this.get('location'));
 	},
 
 /**

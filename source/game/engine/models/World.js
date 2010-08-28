@@ -40,20 +40,23 @@ World = new Class({
 
 	announce: function(message) {
 		this.players.each(function(player) {
-			player.send(message.capitalize());
+			player.send(message);
 		});
 	},
 	
 	getRoom: function(path) {
 		if (!this.rooms[path]) {
+			var file = 'worlds/'+this.basePath+this.roomPath+path;
+			sys.puts("Loading room: "+file);
 			try {
-				var room = require('worlds/'+this.basePath+this.roomPath+path).room;
+				var room  = require(file).room;
+				room.path = path;
 				this.rooms[path] = new room();
 			} catch (e) {
+				log_error("Required room file ("+file+") not found.");
 				return false;
 			}
-		}
-		return this.rooms[path];
+		} return this.rooms[path];
 	}
 
 });

@@ -26,9 +26,8 @@ Player = new Class({
 	enterWorld: function(world) {
 		if (world.getPlayer(this.get('name'))) return false;
 		world.addPlayer(this);
-		this.set('world', world);
+		this.world = world;
 	    this.set('location', "lobby");
-		world.getRoom(this.get('location')).addPlayer(this);
 		this.force('look');
 		return true;
 	},

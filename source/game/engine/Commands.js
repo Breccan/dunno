@@ -24,7 +24,6 @@ Commands = {
 	},
 
 	'say': function(content) {
-		sys.puts(this.name + "wants to say "+content);
 		this.emit(this.name.capitalize()+' says: '+content);
 		return "You say: " + content;
 	},
