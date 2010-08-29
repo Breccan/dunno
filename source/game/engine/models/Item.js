@@ -16,6 +16,14 @@ Item = new Class({
 		this.long = desc;
 	},
 
+	set_aliases: function(aliases) {
+		this.aliases = aliases;
+	},
+
+	add_alias: function(alias) {
+		this.aliases.push(alias);
+	},
+
 	getDescription: function(observer) {
 		return this.long;
 	}

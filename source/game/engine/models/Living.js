@@ -128,6 +128,10 @@ Living = new Class({
 	emit: function(message) {
 		var my = this;
 		var me = this.name;
+		if (!this.get('room')) {
+			log_error("Player should have a room but does not!");
+			return;
+		}
 		this.get('room').get('players').each(function(player, name) {
 			if (player.name != me) player.send(my.genderize(message));
 			//second person = true

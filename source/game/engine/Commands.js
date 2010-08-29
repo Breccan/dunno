@@ -10,7 +10,10 @@ Commands = {
 			var item = this.getItem(obj);
 			//Then check the room environment.
 			if (!item) item = this.get('room').getItem(obj);
-			reply.push("You can't see anything interesting.");
+			//Then check extra description details.
+			if (!item) item = this.get('room').getDetail(obj);
+			if (!item) return("You can't see anything interesting.");
+			return item.getDescription();
 		} return reply;
 	}, 
 

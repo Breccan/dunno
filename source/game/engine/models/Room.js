@@ -1,16 +1,17 @@
 Room = new Class({
 
 	Extends: Base,
+	Implements: Container,
 	long: null,
 	short: null,
 	exits: {},
-	items: {},
+	desc_items: {},
 	players: {},
 
 	initialize: function() {
 		this.players = new Hash(this.players);
 		this.exits   = new Hash(this.exits);
-		this.items   = new Hash(this.items);
+		this.desc_items   = new Hash(this.items);
 		this.create();
 	},
 	
@@ -28,10 +29,6 @@ Room = new Class({
 
 	getExits: function() {
 		return this.exits;
-	},
-
-	getItems: function() {
-		return this.items();
 	},
 
 	hasExit: function(exit) {
@@ -64,10 +61,14 @@ Room = new Class({
 
 	//add an item view inside the room desc. LPC naming style.
 	add_item: function(keyword, desc, aliases) {
-		this.items[keyword] = desc;
+		this.desc_items[keyword] = desc;
 		var that = this;
 		var aliases = new Hash(aliases);
-		aliases.each(function(alias) { that.items[alias] = keyword; });
+		aliases.each(function(alias) { that.desc_items[alias] = keyword; });
+	},
+
+	getDetail: function(item) {
+		return this.desc_items[item];
 	},
 
 	create: function() {
