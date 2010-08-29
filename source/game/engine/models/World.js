@@ -36,12 +36,12 @@ World = new Class({
 	 * Adds the player to the world.
 	 */
 	addPlayer: function(player) {
-		this.players[player.name] = player;
+		this.players[player.name.toLowerCase()] = player;
 		this.announce(player.name+" has entered the world.");
 	},
 
 	getPlayer: function(name) {
-		return this.players[name] || false;
+		return this.players[name.toLowerCase()] || false;
 	},
 
 	announce: function(message) {
@@ -55,7 +55,6 @@ World = new Class({
 			var file = 'worlds/'+this.basePath+this.roomPath+path;
 			sys.puts("Loading room: "+file);
 			try {
-        sys.puts("OH SHIT");
 				var room  = require(file).room;
 				this.rooms[path] = new room(world);
 				this.rooms[path].path = path;
