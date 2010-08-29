@@ -55,20 +55,21 @@ handlePlayer = function(playerName, stream) {
 	});
 
 	stream.on('data', function(data) {
-//		try {
+		try {
 			player.onInput(new String(data).trim());
-//		} catch(e) {
-//			log_error(e);
-//		}
+		} catch(e) {
+			log_error(e);
+		}
 	});
 
-//	try {
+	try {
 		if (!player.enterWorld(world)) return false;
 		player.send("Hi there, "+player.get('name')+"!");
+    player.send("Are you a 'boy' or a 'girl' dancer?");
 		return true;
-//	} catch (e) {
-//		log_error(e);
-//	}
+	} catch (e) {
+		log_error(e);
+	}
 
 };
 

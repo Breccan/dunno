@@ -146,6 +146,14 @@ Commands = {
 	'@': function(string) {
 		this.emit(string);
 		return true;
-	}
+	},
+  'boy': function(string) {
+          this.set('gender', 'male');
+          return "Congratulations, you're now a boy dancer.";
+        },
+  'girl': function(string) {
+          this.set('gender', 'female');
+          return "Congratulations, you're now a girl dancer.";
+        }
 
 };
