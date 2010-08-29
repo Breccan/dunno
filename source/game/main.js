@@ -65,7 +65,7 @@ handlePlayer = function(playerName, stream) {
 	try {
 		if (!player.enterWorld(world)) return false;
 		player.send("Hi there, "+player.get('name')+"!");
-    player.send("You can type a direction to move and have commands such as: 'say', 'tell', 'look', 'dance' and 'inventory'. There's more stuff you can do, try things out.");
+    player.send("Are you a 'boy' or a 'girl' dancer?");
 		return true;
 	} catch (e) {
 		log_error(e);
