@@ -56,6 +56,14 @@ Room = new Class({
 			if (name!=observer.name) players.push(name);
 		});
 		if (players.length>0) lines.push('Players: '+players.join(', '));
+    var living = [];
+    var living_hash = new Hash(this.living);
+    living_hash.each(function(live) {
+      living.push(live.short);
+    });
+    //hack out the last one
+    living.pop();
+		if (living.length>0) lines.push(living.join(', ') + (living.length>1 ? " are" : " is") + " standing here.");
 		return lines;
 	},
 

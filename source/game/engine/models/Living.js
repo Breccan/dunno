@@ -41,7 +41,7 @@ Living = new Class({
 		this.chatter = chatter;
 	},
 
-	chatter: function() {
+	doChat: function() {
 		var n = (Math.random()*100).floor();
 		if (n<this.chat_rate) {
 			this.force(this.chatter.getRandom());
@@ -136,7 +136,7 @@ Living = new Class({
 	 */
 	beatHeart: function() {
 		if (this.queue.length>0) this.callNextAction();
-		this.chatter();
+		this.doChat();
 	},
 
 	/**

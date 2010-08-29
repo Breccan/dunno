@@ -11,6 +11,14 @@ Commands = {
 			sys.puts(this.name);
 			return this.get('room').getDescription(this);
 		} else {
+      var living = room.get('living');
+      var i = 0;
+      for(i = 0; i < living.length; i=i+1){
+        var live = living[i];
+        if (live.get('aliases').include(obj)){
+          return live.get('long');
+        }
+      };
 			//First check local inventory.
 			var item = this.getItem(obj);
 			//Then check the room environment.
@@ -69,6 +77,9 @@ Commands = {
   },
   "save": function(string) {
     return "You can't save. In Disco your past doesn't matter, only your performance on the night.";
+  },
+  "kill": function(string) {
+    return "This is a peaceful place. If you need to burn off some energy then do it on the dance floor.";
   }
 
 };
