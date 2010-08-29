@@ -5,6 +5,7 @@ exports.npc = new Class({
 	create: function() {
 
 		this.set_short('The Boss');
+    this.set('name', 'The Boss');
 
 		this.add_alias('boss');
 

@@ -51,11 +51,12 @@ Room = new Class({
 		var lines = [];
 		lines.push(this.get('long'));
 		lines.push('Exits: '+this.get('exits').getKeys().join(', '));
-		var players = [];
-		this.get('players').each(function(pl,name) {
-			if (name!=observer.name) players.push(name);
+		var player_array = [];
+		this.get('players').each(function(pl) {
+      sys.puts(pl.name);
+			if (pl.name!=observer.name) player_array.push(pl.name);
 		});
-		if (players.length>0) lines.push('Players: '+players.join(', '));
+		if (player_array.length>0) lines.push('Players: '+player_array.join(', '));
     var living = [];
     var living_hash = new Hash(this.living);
     living_hash.each(function(live) {

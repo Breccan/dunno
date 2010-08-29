@@ -55,6 +55,7 @@ World = new Class({
 			var file = 'worlds/'+this.basePath+this.roomPath+path;
 			sys.puts("Loading room: "+file);
 			try {
+        sys.puts("OH SHIT");
 				var room  = require(file).room;
 				this.rooms[path] = new room(world);
 				this.rooms[path].path = path;

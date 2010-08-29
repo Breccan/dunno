@@ -117,6 +117,10 @@ Living = new Class({
 		sys.puts("Transporting "+this.name+" to room "+path);
 		var room = this.world.getRoom(path);
 		if (!room) return false;
+    if (this.player){
+      this.world.getRoom(this.get('room')).removePlayer(this);
+      room.addPlayer(this);
+    }
 		this.set('room', room);
 		return true;
    	},
