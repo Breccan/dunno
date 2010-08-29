@@ -26,6 +26,15 @@ Item = new Class({
 
 	getDescription: function(observer) {
 		return this.long;
+	},
+
+	getShort: function() {
+		if (this.short) return this.short;
+		return 'a thing';
+	},
+
+	hasAlias: function(alias) {
+		return (this.aliases.contains(alias));
 	}
 
 });

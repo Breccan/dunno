@@ -27,7 +27,6 @@ Room = new Class({
 	},
 
 	addNPC: function(npc) {
-		sys.puts("The new NPC's name is "+npc.short);
 		this.living.push(npc);
 	},
 
@@ -37,6 +36,16 @@ Room = new Class({
 
 	getPlayer: function(name) {
 		return this.players[name] || false;
+	},
+
+	getLiving: function(name) {
+		var player = this.getPlayer(name);
+		if (player) return player;
+		var npc = null; 
+		this.living.each(function(l) {
+			if (!npc && l.get('aliases').contains(name)) npc = l;
+		});
+		return npc;
 	},
 
 	getExits: function() {
@@ -52,17 +61,21 @@ Room = new Class({
 		lines.push(this.get('long'));
 		lines.push('Exits: '+this.get('exits').getKeys().join(', '));
 		var player_array = [];
-		this.get('players').each(function(pl) {
-      sys.puts(pl.name);
-			if (pl.name!=observer.name) player_array.push(pl.name);
+		var living = [];
+		this.living.each(function(live) {
+			living.push(live.get('short'));
 		});
-		if (player_array.length>0) lines.push('Players: '+player_array.join(', '));
-    var living = [];
-    var living_hash = new Hash(this.living);
-    living_hash.each(function(live) {
-      if( live.short && live.short.length > 0) living.push(live.short);
-    });
-		if (living.length>0) lines.push(living.join(', ') + (living.length>1 ? " are" : " is") + " standing here.");
+		if (living.length>0) {
+			lines.push(living.join(', ') + (living.length>1 ? " are" : " is") + " standing here.");
+		}
+		var items = [];
+		this.get('items').each(function(item) {
+			items.push(item.get('short'));
+		});
+		if (items.length>0){
+			if (items.length>1) items[items.length-1] = 'and '+items.getLast();
+			lines.push(items.join(', ') + (items.length>1 ? " are" : " is") + " on the ground.");
+		}
 		return lines;
 	},
 

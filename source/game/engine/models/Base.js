@@ -4,7 +4,7 @@ Base = new Class({
 
 	initialize: function(name) {
 		this.init.bind(this).pass(arguments)();
-		//this.create.bind(this).pass(arguments)();
+		this.create.bind(this).pass(arguments)();
 	},
 
 	init: function() {

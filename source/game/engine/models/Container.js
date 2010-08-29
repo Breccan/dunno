@@ -6,11 +6,11 @@ Container = new Class({
 
 	getItem: function(name) {
 		var name = name.split(' ')[0];
-		var response = false;
-		this.items.each(function(item){
-			if (item.get('aliases').contains(name)) response = item;
+		var item = false;
+		this.items.each(function(i){
+			if (!item && i.hasAlias(name)) item = i;
 		});
-		return response;
+		return item;
 	},
 
 	addItem: function(item) {

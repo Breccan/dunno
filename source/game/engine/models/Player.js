@@ -10,6 +10,8 @@ Player = new Class({
 	send: function(message, delay) {
 		if (!message.each) message = [message];
 		message.each(function(line) {
+		    var f = line.charAt(0).toUpperCase();
+			line  = f + line.substr(1);
 			this.fireEvent('output', line);
 		}, this);
 	},

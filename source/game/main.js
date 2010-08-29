@@ -16,9 +16,9 @@ var server = net.createServer(function (stream) {
 
 	var closure = null;
 	stream.on('data', function (data) {
-		if (!closure) closure = handlePlayer(new String(data).trim(), stream);
-		if (!closure) stream.write("Please try again: ");
-	});
+		if (!closure) closure = handlePlayer(new String(data).trim().split(' ')[0], stream);
+		if (!closure) stream.write("Please try a different name: ");
+	}); 
 
 	stream.on('end', function () {
 		stream.write('goodbye\r\n');
@@ -31,9 +31,20 @@ log_error = function(message) {
 	sys.puts("ERROR: "+message);
 }
 
+GLOBAL.onerror = log_error;
+
 world = new World('discoworld');
 
 handlePlayer = function(playerName, stream) {
+
+	if (playerName.match(/\W|\d/)) {
+		stream.write("Letters only, please.");
+	}
+
+	if (world.getPlayer(playerName)) {
+		stream.write("Sorry, that name is already taken.");
+		return false;
+	}
 
 	var player = new Player(playerName);
 
@@ -42,20 +53,20 @@ handlePlayer = function(playerName, stream) {
 	});
 
 	stream.on('data', function(data) {
-		try {
+//		try {
 			player.onInput(new String(data).trim());
-		} catch(e) {
-			log_error(e);
-		}
+//		} catch(e) {
+//			log_error(e);
+//		}
 	});
 
-	try {
-		player.send("Hi there, "+player.get('name')+"!");
+//	try {
 		if (!player.enterWorld(world)) return false;
+		player.send("Hi there, "+player.get('name')+"!");
 		return true;
-	} catch (e) {
-		log_error(e);
-	}
+//	} catch (e) {
+//		log_error(e);
+//	}
 
 };
 

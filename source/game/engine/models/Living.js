@@ -18,7 +18,6 @@ Living = new Class({
 	aliases: [],
 
 	init: function(name) {
-		sys.puts("Initializing new living thing named "+name);
 		if (name) this.set('name', name);
 		this.startHeart();
 		this.create();
@@ -26,6 +25,10 @@ Living = new Class({
 
 	set_short: function(short) {
 		this.short = short;
+	},
+
+	getShort: function(short) {
+		return this.name || this.short || "a thing";
 	},
 
 	set_long: function(long) {
@@ -49,7 +52,7 @@ Living = new Class({
 	},
 
 	getDescription: function(observer) {
-		return this.genderize('%You look%s pretty ordinary.');
+		return this.genderize('%you look%s pretty ordinary.');
 	},
 
 	genderize: function(str, you) {
@@ -88,7 +91,8 @@ Living = new Class({
 	},
 
 	setRoom: function(room) {
-		if (this.get('room')) this.get('room').removePlayer(this);
+		if (this.get('room') && this.player) this.get('room').removePlayer(this);
+		else if (this.get('room')) this.get('room').removeLiving(this);
 		this.room = room;
 		if (this.player) this.room.addPlayer(this);
 		else this.room.addNPC(this);
@@ -96,7 +100,6 @@ Living = new Class({
 	},
 	
 	getRoom: function() {
-		sys.puts("Looking for the room of "+this.short);
 		return this.room;
 	},
 
@@ -116,10 +119,6 @@ Living = new Class({
 		sys.puts("Transporting "+this.name+" to room "+path);
 		var room = this.world.getRoom(path);
 		if (!room) return false;
-    if (this.player){
-      this.get('room').removePlayer(this);
-      room.addPlayer(this);
-    }
 		this.set('room', room);
 		return true;
    	},
