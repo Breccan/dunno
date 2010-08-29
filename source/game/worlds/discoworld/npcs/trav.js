@@ -14,7 +14,7 @@ exports.npc = new Class({
       "and a number of people have just stopped to watch him. He's probably a bit of dick."
 		);
 
-		this.load_chat(20, [
+		this.load_chat(4, [
 			"say You make it with some of these chicks, they think you gotta dance with them.",
 			"@grins widely.",
 			"say Would ya just watch the hair. Ya know, I work on my hair a long time and you hit it. He hits my hair.",

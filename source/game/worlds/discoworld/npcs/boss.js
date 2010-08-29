@@ -14,7 +14,7 @@ exports.npc = new Class({
       "encrusted with rhinestones). He looks a bit surprised that you're in his office"
 		);
 
-		this.load_chat(20, [
+		this.load_chat(4, [
 			"say 'What are you after?",
 			"say I must insist that you leave, customers should stick to the front rooms",
 			"say Leave now or I have you turned into toothpicks",
