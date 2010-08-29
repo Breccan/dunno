@@ -8,6 +8,8 @@ World = new Class({
 
 	items: {},
 
+	npcs: {},
+
 	name: null,
 
 	basePath: null,
@@ -16,11 +18,13 @@ World = new Class({
 
 	itemPath: 'items/',
 
+	npcPath: 'npcs/',
+
 	/**
 	 * The name of the world will determine the path to the world's room and
 	 * object files.
 	 */
-	create: function(name) {
+	init: function(name) {
 		this.set('name', name);
 		this.basePath = name+'/';
 		this.players = new Hash(this.players);
@@ -50,14 +54,14 @@ World = new Class({
 		if (!this.rooms[path]) {
 			var file = 'worlds/'+this.basePath+this.roomPath+path;
 			sys.puts("Loading room: "+file);
-			try {
+//			try {
 				var room  = require(file).room;
-				this.rooms[path] = new room();
+				this.rooms[path] = new room(world);
 				this.rooms[path].path = path;
-			} catch (e) {
+//			} catch (e) {
 				log_error("Required room file ("+file+") not found.");
 				return false;
-			}
+//			}
 		} return this.rooms[path];
 	},
 
@@ -74,6 +78,22 @@ World = new Class({
 				return false;
 			}
 		} return new this.items[path]();
+	},
+
+	loadNPC: function(path) {
+		if (!this.npcs[path]) {
+			var file = 'worlds/'+this.basePath+this.npcPath+path;
+			sys.puts("Loading item: "+file);
+			try {
+				var npc = require(file).npc;
+				npc.path = path;
+				this.npcs[path] = npc;
+				this.npcs[path].world = this;
+			} catch (e) {
+				log_error("Required npc file ("+file+") not found.");
+				return false;
+			}
+		} return new this.npcs[path]();
 	}
 
 });

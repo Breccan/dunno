@@ -1,9 +1,14 @@
 Commands = {
 
+	'': function() {
+		return true;
+	},
+
 	'look': function(obj) {
 		var room = this.get('room');
 		var reply = [];
 		if (!obj) {
+			sys.puts(this.name);
 			return this.get('room').getDescription(this);
 		} else {
 			//First check local inventory.
@@ -16,6 +21,15 @@ Commands = {
 			return item.getDescription();
 		} return reply;
 	}, 
+
+	'inventory': function() {
+		if (this.get('items').length<0) return "You have nothing.";
+		var shorts = [];
+		this.get('items').each(function(item) {
+			shorts.push(item.get('short'));
+		});
+		return "You have: "+shorts.join(', ');
+	},
 
 	'move': function(direction) {
 		var room = this.getRoom();

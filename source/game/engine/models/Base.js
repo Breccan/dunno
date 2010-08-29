@@ -2,8 +2,13 @@ Base = new Class({
 
 	save: {},
 
-	initialize: function() {
-		this.create.bind(this).pass(arguments)();
+	initialize: function(name) {
+		this.init.bind(this).pass(arguments)();
+		//this.create.bind(this).pass(arguments)();
+	},
+
+	init: function() {
+
 	},
 
 	create: function() {

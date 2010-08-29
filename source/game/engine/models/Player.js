@@ -1,5 +1,7 @@
 Player = new Class({
 
+	player: true,
+
 	Extends: Living,
 
 	/**
