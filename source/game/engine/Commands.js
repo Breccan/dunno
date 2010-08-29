@@ -39,6 +39,7 @@ Commands = {
 	'wear': function(item) {
 		if (!item) return "Wear what?";
 		if (this.getItem(item)) this.equipItem(this.getItem(item));
+		else return "You don't have that.";
 		this.emit("%You wear%s "+this.getEquippedItem(item).get('short')+'.');
 		return true;
 	},
