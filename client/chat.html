@@ -52,8 +52,8 @@
             sp = str.split('=');
             obj[sp[0]] = sp[1];
         }
-        if (obj.name) send(obj.name);
-        if (obj.gender) send(obj.gender);
+        if (obj.name) socket.send(obj.name);
+        if (obj.gender) socket.send(obj.gender);
       }
     </script>
     <div class="body">
@@ -85,7 +85,7 @@
       h1 {margin-left: 15px; color: #a6a555; margin-top: 20px; padding-top: 10px; margin-bottom: 1px; display:inline; }
       .knockout { display: inline; float: right; border: 0px; vertical-align: top;}
       .knockout a, .knockout img { display: inline; float: right; border: 0px;vertical-align: top; }
-      #chat { background: black; padding-top: 5px; height: 480px; overflow: auto; margin: 0px auto; width: 835px; font: 13px Helvetica, Arial; -moz-border-radius: 8px; -webkit-border-radius: 8px; color: white;}
+      #chat { overflow: auto; background: black; padding-top: 5px; height: 480px; overflow: auto; margin: 0px auto; width: 835px; font: 13px Helvetica, Arial; -moz-border-radius: 8px; -webkit-border-radius: 8px; color: white;}
       #chat p { padding: 0px; margin: 0; margin-left: 3px; }
       #chat p.action { font-weight: bold; }
       .form { display: inline; }

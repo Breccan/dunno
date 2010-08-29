@@ -55,20 +55,21 @@ handlePlayer = function(playerName, stream) {
 	});
 
 	stream.on('data', function(data) {
-//		try {
+		try {
 			player.onInput(new String(data).trim());
-//		} catch(e) {
-//			log_error(e);
-//		}
+		} catch(e) {
+			log_error(e);
+		}
 	});
 
-//	try {
+	try {
 		if (!player.enterWorld(world)) return false;
 		player.send("Hi there, "+player.get('name')+"!");
+    player.send("You can type a direction to move and have commands such as: 'say', 'tell', 'look', 'dance' and 'inventory'. There's more stuff you can do, try things out.");
 		return true;
-//	} catch (e) {
-//		log_error(e);
-//	}
+	} catch (e) {
+		log_error(e);
+	}
 
 };
 

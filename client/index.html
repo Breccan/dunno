@@ -14,11 +14,15 @@
         <div class="boxes">
           <h1><img src="/client/discoworld_logo.png" alt="discoworld"/></h1>
           <div id="chat">   
-            <form>
-              <input type="text" id="playerName" value="Your Name" />
-              <a href="#" onclick="javascript:startGame('female');return false;">girl</a>
-              <a href="#" onclick="javascript:startGame('male');return false;">boy</a>
-            </form>
+            <div class="login">
+              <form>
+                <input type="text" id="playerName" value="Name" /><br />
+                <div class="links">
+                  <a href="#" onclick="javascript:startGame('female');return false;"><img src="/client/girl.png" alt="girl" /></a>
+                  <a href="#" onclick="javascript:startGame('male');return false;"><img src="/client/boy.png" alt="boy" /></a>
+                </div>
+              </form>
+            </div>
             </div>
           <div class="knockout"><a href="http://nodeknockout.com/teams/dunno" target="nko" title="Help me win Node.js KO!"><img src="http://nodeknockout.com/images/voteko.png" alt="Help me win Node.js KO!" /></a> </div>
         </div>
@@ -38,6 +42,10 @@
         background: -moz-linear-gradient(100% 100% 90deg, #ffffff, #231223);
         background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#231223), to(#fff));
       }
+      .login { margin: 0px auto; margin-top: 346px; width: 220px; }
+      .login .links {  font-size: 40px; }
+      .login img {border: none;}
+      .login input { height:30px; width: 220px; font-size: 25px; } 
       .body {background-image: url('/client/dots.png'); overflow: hidden;  background-repeat: repeat; width: 967px; margin: 0px auto;  -moz-border-radius: 8px; -webkit-border-radius: 8px; margin-top: 0px; padding-top: 20px; margin-bottom: 0px; padding-bottom: 20px; }
       h1 {margin-left: 15px; color: #a6a555; margin-top: 20px; padding-top: 10px; margin-bottom: 1px; display:inline; }
       .knockout { display: inline; float: right; border: 0px; vertical-align: top;}
