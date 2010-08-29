@@ -28,12 +28,13 @@ server = http.createServer(function(req, res){
     break;
 
   default:
-    if (/\.(js|html|swf)$/.test(path)){
+    if (/\.(js|html|swf|png)$/.test(path)){
       try {
         var swf = path.substr(-4) === '.swf';
-        res.writeHead(200, {'Content-Type': swf ? 'application/x-shockwave-flash' : ('text/' + (path.substr(-3) === '.js' ? 'javascript' : 'html'))});
-        fs.readFile(__dirname + path, swf ? 'binary' : 'utf8', function(err, data){
-          if (!err) res.write(data, swf ? 'binary' : 'utf8');
+        var png = path.substr(-4) === '.png';
+        res.writeHead(200, {'Content-Type': swf ? 'application/x-shockwave-flash' : png ? 'image/png' : ('text/' + (path.substr(-3) === '.js' ? 'javascript' : 'html'))});
+        fs.readFile(__dirname + path, (swf || png) ? 'binary' : 'utf8', function(err, data){
+          if (!err) res.write(data, (swf || png) ? 'binary' : 'utf8');
           res.end();
         });
       } catch(e){ 
