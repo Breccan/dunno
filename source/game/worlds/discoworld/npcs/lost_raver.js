@@ -15,7 +15,7 @@ exports.npc = new Class({
 			"stick.  He doesn't appear to be wearing roller skates."
 		);
 
-		this.load_chat(20, [
+		this.load_chat(4, [
 			"say 'Sup?",
 			"@grins widely.",
 			"say This music is pretty low-core.",

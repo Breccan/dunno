@@ -15,7 +15,7 @@ exports.npc = new Class({
       "crazy stories to tell"
 		);
 
-		this.load_chat(20, [
+		this.load_chat(4, [
 			"say 'What are you after?",
 			"@grins widely.",
 			"say I highly recommend Hendrick's gin.",
