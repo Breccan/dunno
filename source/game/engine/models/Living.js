@@ -97,7 +97,6 @@ Living = new Class({
 	
 	getRoom: function() {
 		sys.puts("Looking for the room of "+this.short);
-		sys.puts(this.room);
 		return this.room;
 	},
 
@@ -118,7 +117,7 @@ Living = new Class({
 		var room = this.world.getRoom(path);
 		if (!room) return false;
     if (this.player){
-      this.world.getRoom(this.get('room')).removePlayer(this);
+      this.get('room').removePlayer(this);
       room.addPlayer(this);
     }
 		this.set('room', room);

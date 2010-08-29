@@ -1,8 +1,8 @@
 Player = new Class({
 
-	player: true,
 
 	Extends: Living,
+	player: true,
 
 	/**
 	 * The main engine will add an event to the player object to output data.
