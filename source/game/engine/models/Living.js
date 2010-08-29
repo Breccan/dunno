@@ -52,7 +52,8 @@ Living = new Class({
 	},
 
 	getDescription: function(observer) {
-		return this.genderize('%you look%s pretty ordinary.');
+		if (!this.get('long')) return this.genderize('%you look%s pretty ordinary.');
+		return this.get('long');
 	},
 
 	genderize: function(str, you) {
