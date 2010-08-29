@@ -8,8 +8,10 @@ Player = new Class({
 	 * The main engine will add an event to the player object to output data.
 	 */
 	send: function(message, delay) {
+		if (!message) return;
 		if (!message.each) message = [message];
 		message.each(function(line) {
+			if (!line) return;
 		    var f = line.charAt(0).toUpperCase();
 			line  = f + line.substr(1);
 			this.fireEvent('output', line);

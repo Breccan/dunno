@@ -12,6 +12,14 @@ Item = new Class({
 		this.short = desc;
 	},
 
+	on_equip: function() {
+
+	},
+
+	on_remove: function() {
+
+	},
+
 	set_long: function(desc) {
 		this.long = desc;
 	},
