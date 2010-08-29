@@ -6,28 +6,29 @@ Commands = {
 		if (!obj) {
 			return this.get('room').getDescription(this);
 		} else {
-			var item = this.getByKeyword(obj);
-			if (!item) item = this.get('room').getByKeyboard(obj);
-
+			//First check local inventory.
+			var item = this.getItem(obj);
+			//Then check the room environment.
+			if (!item) item = this.get('room').getItem(obj);
 			reply.push("You can't see anything interesting.");
-		}
-		return reply;
+		} return reply;
 	}, 
 
-	'move': function(direction){
+	'move': function(direction) {
 		var room = this.getRoom();
 		if (room && room.exits[direction]) {
 			var success = this.moveTo(room.exits[direction]);
 			if (!success) return "You can't go that way."
-			return "You move "+ direction +".";
+			this.emit("%You leave%s "+direction+".");
+			return true;
 		} else {
 			return "There's nothing in that direction.";
 		}
 	},
 
 	'say': function(content) {
-		this.emit(this.name.capitalize()+' says: '+content);
-		return "You say: " + content;
+		this.emit('%You say%s: '+content);
+		return true;
 	},
 
 	'tell': function(string) {
@@ -48,4 +49,3 @@ Commands = {
 	}
 
 };
-

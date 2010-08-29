@@ -29,17 +29,8 @@ Player = new Class({
 		this.world = world;
 	    this.set('location', "lobby");
 		this.force('look');
+		this.addItem(this.world.loadItem('rollerskates'));
 		return true;
-	},
-
-	/**
-	 * Emits a message to everyone in the room except the current player.
-	 */
-	emit: function(message) {
-		me = this.name;
-		this.get('room').get('players').each(function(player, name) {
-			if (player.name != me) player.send(message);
-		});
 	}
 
 });

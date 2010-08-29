@@ -2,27 +2,60 @@ Living = new Class({
 
 	Extends: Base,
 
-	Implements: [Events,Options],
+	Implements: [Events,Options,Container],
 
 	queue: [],
-
 	heartTimer: null,
-
 	short: null,
-
 	long: null,
-
 	name: null,
-
 	world: null,
-
 	room: null,
-
 	location: null,
+	gender: 'male', //OMG SEXIST!!!!!ONE!!!!
 
 	create: function(name) {
 		this.set('name', name);
 		this.startHeart();
+	},
+
+	getDescription: function(observer) {
+		return this.genderize('%You look%s pretty ordinary.');
+	},
+
+	genderize: function(str, you) {
+
+		var male = (this.gender=='male');
+		var name = this.name.capitalize();
+		var pronouns = {
+			'you'   : (male) ? 'he'  : 'she',
+			'You'   : name, //(male) ? 'He'  : 'She',
+			'yours' : (male) ? 'his' : 'her',
+			'Yours' : (male) ? 'His' : 'Her',
+			'your'  : (male) ? 'his' : 'her',
+			'Your'  : name+"'s", //(male) ? 'His' : 'her',
+			's'     : 's'
+		};
+
+		if (you) {
+			var set = {};
+			new Hash(pronouns).each(function(v,k) {
+				set[k] = k;	
+			});
+			set.s = '';
+			pronouns = set;
+		}
+
+		var match = str.match(/%(\w+)/g);
+		if (!match) return str;
+
+		match.each(function(k) {
+			var k = k.replace(/^%/, '');
+			if (typeof pronouns[k] !== 'undefined') str = str.replace('%'+k, pronouns[k]);
+		});
+
+		return str;
+
 	},
 
 	setRoom: function(room) {
@@ -30,7 +63,7 @@ Living = new Class({
 		if (this.get('room')) this.get('room').removePlayer(this);
 		this.room = room;
 		this.room.addPlayer(this);
-		this.set('location', room.path);
+		this.location = this.room.path;
 	},
 	
 	getRoom: function() {
@@ -88,6 +121,19 @@ Living = new Class({
 	 * need to be sent messages.
 	 */
 	send: function(message, delay) { },
+
+	/**
+	 * Emits a message to everyone in the room.
+	 */
+	emit: function(message) {
+		var my = this;
+		var me = this.name;
+		this.get('room').get('players').each(function(player, name) {
+			if (player.name != me) player.send(my.genderize(message));
+			//second person = true
+			else player.send(my.genderize(message, true));
+		});
+	},
 
 	/**
 	 * When a player enters a command, we'll add it to the command stack.

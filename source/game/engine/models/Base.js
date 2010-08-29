@@ -6,6 +6,10 @@ Base = new Class({
 		this.create.bind(this).pass(arguments)();
 	},
 
+	create: function() {
+
+	},
+
 	save: function (k, v) {
 		this.save[k] = v;
 	},
