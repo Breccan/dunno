@@ -88,7 +88,6 @@ Living = new Class({
 	},
 
 	setRoom: function(room) {
-		if (this.room && this.room.path == this.location) return;
 		if (this.get('room')) this.get('room').removePlayer(this);
 		this.room = room;
 		if (this.player) this.room.addPlayer(this);
