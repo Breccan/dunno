@@ -39,6 +39,12 @@ Room = new Class({
 	},
 
 	getLiving: function(name) {
+		if (!name) {
+			living = this.living;
+			this.players.each(function(pl) {
+				living.push(pl);
+			}); return living;
+		}
 		var player = this.getPlayer(name);
 		if (player) return player;
 		var npc = null; 
@@ -60,9 +66,8 @@ Room = new Class({
 		var lines = [];
 		lines.push(this.get('long'));
 		lines.push('Exits: '+this.get('exits').getKeys().join(', '));
-		var player_array = [];
 		var living = [];
-		this.living.each(function(live) {
+		this.get('living').each(function(live) {
 			living.push(live.get('short'));
 		});
 		if (living.length>0) {
