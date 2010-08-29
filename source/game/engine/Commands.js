@@ -28,6 +28,14 @@ Commands = {
 		} return reply;
 	}, 
 
+	'materialize': function(path) {
+		var item = this.world.loadItem(path);
+		if (!item) return "Invalid path: "+path;
+		this.emit("%You pull%s "+item.get('short')+' out of thin air.');
+		this.addItem(item);
+		return true;
+	},
+
 	'wear': function(item) {
 		if (!item) return "Wear what?";
 		if (this.getItem(item)) this.equipItem(this.getItem(item));
@@ -140,7 +148,7 @@ Commands = {
 			this.emit(moves[move]+' with'+tar+'.');
 			return true;
 		} else {
-			return "We don't now that one.  Try one of these moves: "+new Hash(moves).getKeys().join(', ');
+			return "We don't now that one.  Try to 'dance' one of these moves: "+new Hash(moves).getKeys().join(', ');
 		}
 	},
 
