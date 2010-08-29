@@ -14,6 +14,7 @@ exports.room = new Class({
 		this.add_exit("northwest", "disco_nw");
 		this.add_exit("southeast", "disco_se");
 		this.add_exit("northeast", "disco_ne");
+		this.add_living('trav');
 	}
 
 });

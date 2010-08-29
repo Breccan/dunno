@@ -9,6 +9,7 @@ exports.room = new Class({
 		this.add_item('drawers', "The drawers have handles and are locked");
 		this.add_item('bookshelf', "The bookshelf is full of get rich quick books.");
 		this.add_exit("west", "corridor_e");
+		this.add_living('boss');
 	}
 
 });
