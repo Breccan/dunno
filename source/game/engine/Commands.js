@@ -27,6 +27,22 @@ Commands = {
 		} return reply;
 	}, 
 
+	'wear': function(item) {
+		if (!item) return "Wear what?";
+		if (this.getItem(item)) this.equipItem(this.getItem(item));
+		this.emit("%You wear%s "+this.getEquippedItem(item).get('short')+'.');
+		return true;
+	},
+
+	'remove': function(item) {
+		if (!item) return "Remove what?";
+		var obj = this.getEquippedItem(item);
+		if (!obj) return "You're not wearing that.";
+		this.unequipItem(obj);
+		this.emit("%You remove%s "+obj.get('short')+'.');
+		return true;
+	},
+
 	'drop': function(target) {
 		if (!target) return "Drop what?";
 		var item = this.getItem(target);
