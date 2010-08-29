@@ -43,6 +43,18 @@
       socket.on('message', function(obj){
         message(obj);
       });      
+      var loc = window.location.href.split('?');
+      if (loc.length>1) {
+        var obj={};
+        var split = loc[1].split('&');
+        for (i in split) {
+            var str = split[i]+"";
+            sp = str.split('=');
+            obj[sp[0]] = sp[1];
+        }
+        if (obj.name) send(obj.name);
+        if (obj.gender) send(obj.gender);
+      }
     </script>
     <div class="body">
     
