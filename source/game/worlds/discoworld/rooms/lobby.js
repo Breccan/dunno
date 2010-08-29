@@ -8,6 +8,7 @@ exports.room = new Class({
 		this.add_item('elevator', "The elevator looks broken.");
 		this.add_exit("west", "stairwell_01");
     this.add_exit("north", "disco_s");
+		this.add_living('lost_raver');
 	}
 
 });

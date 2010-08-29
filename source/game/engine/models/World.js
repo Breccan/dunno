@@ -54,14 +54,14 @@ World = new Class({
 		if (!this.rooms[path]) {
 			var file = 'worlds/'+this.basePath+this.roomPath+path;
 			sys.puts("Loading room: "+file);
-//			try {
+			try {
 				var room  = require(file).room;
 				this.rooms[path] = new room(world);
 				this.rooms[path].path = path;
-//			} catch (e) {
+			} catch (e) {
 				log_error("Required room file ("+file+") not found.");
 				return false;
-//			}
+			}
 		} return this.rooms[path];
 	},
 
