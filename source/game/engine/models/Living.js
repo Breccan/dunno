@@ -51,21 +51,52 @@ Living = new Class({
 		}
 	},
 
+	describeInventory: function() {
+		var lines = [];
+	
+		var items = [];
+		this.get('equipped').each(function(item) {
+			items.push(item.get('short'));
+		});
+		if (items.length>0){
+			if (items.length>1) items[items.length-1] = 'and '+items.getlast();
+			lines.push("Wearing: "+items.join(', '));
+		}
+
+		var items = [];
+		this.get('items').each(function(item) {
+			items.push(item.get('short'));
+		});
+		if (items.length>0){
+			if (items.length>1) items[items.length-1] = 'and '+items.getlast();
+			lines.push("Carrying: "+items.join(', '));
+		}
+
+		return lines;
+	},
+
 	getDescription: function(observer) {
-		if (!this.get('long')) return this.genderize('%you look%s pretty ordinary.');
-		return this.get('long');
+		reply = [];
+		if (!this.get('long')) reply.push(this.genderize('%you look%s pretty ordinary.'));
+		reply.push(this.get('long'));
+		this.describeInventory().each(function(l) {
+			sys.puts(l);
+			reply.push(l);
+		});
+		return reply;
 	},
 
 	genderize: function(str, you) {
 
 		var male = (this.gender=='male');
-		var name = this.name.capitalize();
+		var name = this.get('name');
 		var pronouns = {
 			'you'   : (male) ? 'he'  : 'she',
 			'You'   : name, //(male) ? 'He'  : 'She',
 			'yours' : (male) ? 'his' : 'her',
 			'Yours' : (male) ? 'His' : 'Her',
 			'your'  : (male) ? 'his' : 'her',
+			'yourself' : (male) ? 'himself' : 'herself',
 			'Your'  : name+"'s", //(male) ? 'His' : 'her',
 			's'     : 's',
 			'es'    : 'es'
@@ -90,7 +121,6 @@ Living = new Class({
 		});
 
 		return str;
-
 	},
 
 	setRoom: function(room) {

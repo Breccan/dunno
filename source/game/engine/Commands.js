@@ -64,12 +64,7 @@ Commands = {
 	},
 
 	'inventory': function() {
-		if (this.get('items').length<0) return "You have nothing.";
-		var shorts = [];
-		this.get('items').each(function(item) {
-			shorts.push(item.get('short'));
-		});
-		return "You have: "+shorts.join(', ');
+		return this.describeInventory();
 	},
 
 	'move': function(direction) {
@@ -124,15 +119,33 @@ Commands = {
 	},
 
 	"dance": function (string) {
+		var str    = string.split(' ');
+		var move   = str.shift();
+		var target = str.join(' ');
+		var tar = ' %yourself';
+		if (target) {
+			var tar = this.get('room').getLiving(target);
+			if (!tar) return "You don't see that person here.";
+			tar = ' '+tar.get('short');
+		}
 		var moves = {
-			'hustle': '%You do%es the hustle.'
+			'hustle': '%You do%es the hustle',
+			'moonwalk': '%You moonwalk%s',
+			'boxstep': '%You boxstep%s',
+			'tango':   '%You tango%es',
+			'bump':    '%You bump%s'
 		};
-		if (moves[string]) {
-			this.emit(moves[string]);
+		if (moves[move]) {
+			this.emit(moves[move]+' with'+tar+'.');
 			return true;
 		} else {
 			return "We don't now that one.  Try one of these moves: "+new Hash(moves).getKeys().join(', ');
 		}
+	},
+
+	'@': function(string) {
+		this.emit(string);
+		return true;
 	}
 
 };
