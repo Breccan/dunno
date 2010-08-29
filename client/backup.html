@@ -13,7 +13,16 @@
       <div class="content">
         <div class="boxes">
           <h1><img src="/client/discoworld_logo.png" alt="discoworld"/></h1>
-          <div id="chat">          </div>
+          <div id="chat"><h2>Welcome to DiscoWorld</h2><p>You can connect using the <a href="/client/chat.html">Browser Client</a> or connect to dunno.no.de:8000 with your favourite Mud Client.</p>
+            <p> If you don't know what a MUD is go to <a href="http://en.wikipedia.org/wiki/MUD">wikipedia</a>.</p>
+            <p> You can start doing stuff in the game using the following commands:
+            <ul>
+              <li>You can move around by typing a direction.</li>
+              <li>Look at things with 'look'</li>
+              <li>Talk with 'say' and 'tell'</li>
+            </ul>
+            </p>
+          </div>
           <div class="knockout"><a href="http://nodeknockout.com/teams/dunno" target="nko" title="Help me win Node.js KO!"><img src="http://nodeknockout.com/images/voteko.png" alt="Help me win Node.js KO!" /></a> </div>
         </div>
         <div class="disco_player" style="display:inline;"><object width="150" height="150"> <param name="movie" value="http://listen.grooveshark.com/widget.swf" /> <param name="wmode" value="window" /> <param name="allowScriptAccess" value="always" /> <param name="flashvars" value="hostname=cowbell.grooveshark.com&widgetID=22335147&style=metal&bbg=99FF00&bfg=FF0054&bt=0088FF&bth=99FF00&pbg=0088FF&pbgh=FF0054&pfg=99FF00&pfgh=0088FF&si=0088FF&lbg=0088FF&lbgh=FF0054&lfg=99FF00&lfgh=0088FF&sb=0088FF&sbh=FF0054&p=0" /> <embed src="http://listen.grooveshark.com/widget.swf" type="application/x-shockwave-flash" width="150" height="150" flashvars="hostname=cowbell.grooveshark.com&widgetID=22335147&style=metal&bbg=99FF00&bfg=FF0054&bt=0088FF&bth=99FF00&pbg=0088FF&pbgh=FF0054&pfg=99FF00&pfgh=0088FF&si=0088FF&lbg=0088FF&lbgh=FF0054&lfg=99FF00&lfgh=0088FF&sb=0088FF&sbh=FF0054&p=0" allowScriptAccess="always" wmode="window" /></object> </div>
@@ -30,7 +39,7 @@
       h1 {margin-left: 15px; color: #a6a555; margin-top: 20px; padding-top: 10px; margin-bottom: 1px; display:inline; }
       .knockout { display: inline; float: right; border: 0px; vertical-align: top;}
       .knockout a, .knockout img { display: inline; float: right; border: 0px;vertical-align: top; }
-      #chat { background: black url('/client/intro.png') center; padding-left: 10px; padding-top: 5px; height: 480px; overflow: auto; margin: 0px auto; width: 835px; font: 13px Helvetica, Arial;  -moz-border-radius: 8px; -webkit-border-radius: 8px;}
+      #chat {background: white; padding-left: 10px; padding-top: 5px; height: 480px; overflow: auto; margin: 0px auto; width: 835px; border: 1px solid #eee; font: 13px Helvetica, Arial; background: white; -moz-border-radius: 8px; -webkit-border-radius: 8px;}
       #chat p { padding: 0px; margin: 0; margin-left: 3px; opacity: 1; }
       #chat p.action { font-weight: bold; }
       .form { display: inline; }
