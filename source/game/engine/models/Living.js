@@ -67,7 +67,8 @@ Living = new Class({
 			'Yours' : (male) ? 'His' : 'Her',
 			'your'  : (male) ? 'his' : 'her',
 			'Your'  : name+"'s", //(male) ? 'His' : 'her',
-			's'     : 's'
+			's'     : 's',
+			'es'    : 'es'
 		};
 
 		if (you) {
@@ -76,6 +77,7 @@ Living = new Class({
 				set[k] = k;	
 			});
 			set.s = '';
+			set.es = '';
 			pronouns = set;
 		}
 

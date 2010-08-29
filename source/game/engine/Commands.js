@@ -121,6 +121,18 @@ Commands = {
 	"outdance": function(string) {
 		var target = this.get('room').getLiving(string);
 		if (target) return target.genderize("You want to outdance "+((target.gender=='male')?'HIM':'HER')+"?!");
+	},
+
+	"dance": function (string) {
+		var moves = {
+			'hustle': '%You do%es the hustle.'
+		};
+		if (moves[string]) {
+			this.emit(moves[string]);
+			return true;
+		} else {
+			return "We don't now that one.  Try one of these moves: "+new Hash(moves).getKeys().join(', ');
+		}
 	}
 
 };
