@@ -4,7 +4,7 @@ exports.item = new Class({
 
 	create: function() {
 		this.set_long("This pair of rollerskates is amazing.");
-		this.set_short("a pair of roller skates");
+		this.set_short("a pair of "+this.get_material()+" "+this.get_color()+" roller skates");
 		this.set_aliases(['skates', 'rollerskates']);
 	},
 

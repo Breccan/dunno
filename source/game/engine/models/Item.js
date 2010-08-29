@@ -12,6 +12,23 @@ Item = new Class({
 		this.short = desc;
 	},
 
+	get_color: function() {
+		return ['green', 'silver', 'red', 'purple', 'yellow', 'neon pink'].getRandom();
+	},
+
+	get_material: function() {
+		var mats = ['dull', 'fluffy', 'weathered', 'oversized', 'shiny', 'fuzzy', 'sparkling', 'rhinestone-encrusted', 'leather', 'velvet', 'satin', 'silk'];
+		return mats.getRandom();
+	},
+
+	get_type: function() {
+		return ['jacket', 'hat', 'shirt', 'bracelet', 'scarf', 'bowtie'].getRandom();
+	},
+
+	get_type_pair: function() {
+		return ['gloves', 'pants', 'skates', 'bracelets', 'shoes', 'boots'].getRandom();
+	},
+
 	on_equip: function() {
 
 	},
