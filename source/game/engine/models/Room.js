@@ -23,7 +23,7 @@ Room = new Class({
 	},
 	
 	addPlayer: function(player) {
-		this.players[player.name] = player;
+		this.players[player.name.toLowerCase()] = player;
 	},
 
 	addNPC: function(npc) {
@@ -31,11 +31,11 @@ Room = new Class({
 	},
 
 	removePlayer: function(player) {
-		delete(this.players[player.name]);
+		delete(this.players[player.name.toLowerCase()]);
 	},
 
 	getPlayer: function(name) {
-		return this.players[name] || false;
+		return this.players[name.toLowerCase()] || false;
 	},
 
 	getLiving: function(name) {

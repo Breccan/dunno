@@ -5,6 +5,7 @@ Commands = {
 	},
 
 	'look': function(obj) {
+		obj = obj.toLowerCase();
 		var room = this.get('room');
 		var reply = [];
 		if (!obj) {
