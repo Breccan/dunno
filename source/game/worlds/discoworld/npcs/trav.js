@@ -4,10 +4,10 @@ exports.npc = new Class({
 
 	create: function() {
 
-		this.set_short('Trav');
-    this.set('name', 'Trav');
+		this.set_short('Tony');
+    this.set('name', 'Tony');
 
-		this.add_alias('trav');
+		this.add_alias('tony');
 
 		this.set_long(
       "This guy has really hit his groove. He's absolutely dominating the center of the floor "+
