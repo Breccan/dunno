@@ -40,10 +40,14 @@ Room = new Class({
 
 	getLiving: function(name) {
 		if (!name) {
-			living = this.living;
+			living = [];
 			this.players.each(function(pl) {
 				living.push(pl);
-			}); return living;
+			});
+			this.living.each(function(l) {
+				living.push(l);
+			});
+			return living;
 		}
 		var player = this.getPlayer(name);
 		if (player) return player;
@@ -63,14 +67,20 @@ Room = new Class({
 	},
 
 	getDescription: function(observer) {
+		if (!observer) return "But you're nonexistent, so who fucking cares?";
 		var lines = [];
 		lines.push(this.get('long'));
 		lines.push('Exits: '+this.get('exits').getKeys().join(', '));
 		var living = [];
 		this.get('living').each(function(live) {
-			living.push(live.get('short'));
+			if (live!=observer) living.push(live.get('short'));
 		});
 		if (living.length>0) {
+			if (living.length>1) {
+				var last = living.getLast();
+				living[living.length-1] = 'and '+last;
+				living[living.length-2] = living[living.length-2].replace(/, $/, ' ');
+			}
 			lines.push(living.join(', ') + (living.length>1 ? " are" : " is") + " standing here.");
 		}
 		var items = [];
