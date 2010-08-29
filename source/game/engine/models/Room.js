@@ -7,16 +7,28 @@ Room = new Class({
 	exits: {},
 	desc_items: {},
 	players: {},
+	living: [],
 
-	initialize: function() {
+	initialize: function(world) {
+		this.world   = world;
 		this.players = new Hash(this.players);
 		this.exits   = new Hash(this.exits);
 		this.desc_items   = new Hash(this.items);
 		this.create();
 	},
+
+	add_living: function(path) {
+		var npc = this.world.loadNPC(path);
+		npc.set('room', this);
+	},
 	
 	addPlayer: function(player) {
 		this.players[player.name] = player;
+	},
+
+	addNPC: function(npc) {
+		sys.puts("The new NPC's name is "+npc.short);
+		this.living.push(npc);
 	},
 
 	removePlayer: function(player) {

@@ -13,10 +13,39 @@ Living = new Class({
 	room: null,
 	location: null,
 	gender: 'male', //OMG SEXIST!!!!!ONE!!!!
+	chat_rate: null,
+	chatter: [],
+	aliases: [],
 
-	create: function(name) {
-		this.set('name', name);
+	init: function(name) {
+		sys.puts("Initializing new living thing named "+name);
+		if (name) this.set('name', name);
 		this.startHeart();
+		this.create();
+	},
+
+	set_short: function(short) {
+		this.short = short;
+	},
+
+	set_long: function(long) {
+		this.long = long;
+	},
+
+	add_alias: function(alias) {
+		this.aliases.push(alias);
+	},
+
+	load_chat: function(rate, chatter) {
+		this.chat_rate = rate;
+		this.chatter = chatter;
+	},
+
+	chatter: function() {
+		var n = (Math.random()*100).floor();
+		if (n<this.chat_rate) {
+			this.force(this.chatter.getRandom());
+		}
 	},
 
 	getDescription: function(observer) {
@@ -62,16 +91,19 @@ Living = new Class({
 		if (this.room && this.room.path == this.location) return;
 		if (this.get('room')) this.get('room').removePlayer(this);
 		this.room = room;
-		this.room.addPlayer(this);
+		if (this.player) this.room.addPlayer(this);
+		else this.room.addNPC(this);
 		this.location = this.room.path;
 	},
 	
 	getRoom: function() {
+		sys.puts("Looking for the room of "+this.short);
+		sys.puts(this.room);
 		return this.room;
 	},
 
 	setLocation: function(path) {
-		sys.puts("Setting location to "+path);
+		sys.puts("Setting location of "+this.name+" to "+path);
 		var room = this.world.getRoom(path);
 		if (!room) {
 			log_error("Can't find room for "+path);
@@ -105,6 +137,7 @@ Living = new Class({
 	 */
 	beatHeart: function() {
 		if (this.queue.length>0) this.callNextAction();
+		this.chatter();
 	},
 
 	/**
@@ -129,12 +162,13 @@ Living = new Class({
 		var my = this;
 		var me = this.name;
 		if (!this.get('room')) {
-			log_error("Player should have a room but does not!");
+			log_error("Living "+this.name+" should have a room but does not!");
 			return;
 		}
 		this.get('room').get('players').each(function(player, name) {
+			//If it's not the current player, send the message with she or he.
 			if (player.name != me) player.send(my.genderize(message));
-			//second person = true
+			//Otherwise, use "you".
 			else player.send(my.genderize(message, true));
 		});
 	},
