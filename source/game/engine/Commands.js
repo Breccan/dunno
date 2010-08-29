@@ -49,6 +49,12 @@ Commands = {
 	"'": function(string) {
 		this.force("say " + string);
 		return true;
-	}
+  },
+  "search": function(string) {
+    return "You search around for a bit but don't find anything. If there was something here then someone else has already taken it.";
+  },
+  "save": function(string) {
+    return "You can't save. In Disco your past doesn't matter, only your performance on the night.";
+  }
 
 };
