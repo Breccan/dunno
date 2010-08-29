@@ -36,6 +36,8 @@ GLOBAL.onerror = log_error;
 world = new World('discoworld');
 
 handlePlayer = function(playerName, stream) {
+	
+	if (playerName == 'male' || playerName == 'boy') return false;
 
 	if (playerName.match(/\W|\d/)) {
 		stream.write("Letters only, please.");
