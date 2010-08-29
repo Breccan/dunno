@@ -95,6 +95,8 @@ Living = new Class({
 			'You'   : name, //(male) ? 'He'  : 'She',
 			'yours' : (male) ? 'his' : 'her',
 			'Yours' : (male) ? 'His' : 'Her',
+			"You're" : name+"'s",
+			"you're" : (male) ? "he's" : "she's",
 			'your'  : (male) ? 'his' : 'her',
 			'yourself' : (male) ? 'himself' : 'herself',
 			'Your'  : name+"'s", //(male) ? 'His' : 'her',
@@ -112,7 +114,7 @@ Living = new Class({
 			pronouns = set;
 		}
 
-		var match = str.match(/%(\w+)/g);
+		var match = str.match(/%([A-Z'a-z]+)/g);
 		if (!match) return str;
 
 		match.each(function(k) {

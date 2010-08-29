@@ -25,11 +25,13 @@ Container = new Class({
 	},
 
 	equipItem: function(item) {
+		if (item.on_equip.pass(this)() === false) return false;
 		this.items.erase(item);
 		this.equipped.push(item);
 	},
 
 	unequipItem: function(item) {
+		if (item.on_remove.pass(this)() === false) return false;
 		this.items.push(item);
 		this.equipped.erase(item);
 	},
