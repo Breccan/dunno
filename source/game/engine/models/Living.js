@@ -59,7 +59,7 @@ Living = new Class({
 			items.push(item.get('short'));
 		});
 		if (items.length>0){
-			if (items.length>1) items[items.length-1] = 'and '+items.getlast();
+			if (items.length>1) items[items.length-1] = 'and '+items.getLast();
 			lines.push("Wearing: "+items.join(', '));
 		}
 
@@ -68,7 +68,7 @@ Living = new Class({
 			items.push(item.get('short'));
 		});
 		if (items.length>0){
-			if (items.length>1) items[items.length-1] = 'and '+items.getlast();
+			if (items.length>1) items[items.length-1] = 'and '+items.getLast();
 			lines.push("Carrying: "+items.join(', '));
 		}
 
